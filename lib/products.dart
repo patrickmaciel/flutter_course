@@ -20,11 +20,12 @@ class Products extends StatelessWidget {
             children: <Widget>[
               FlatButton(
                 child: Text('Details'),
-                onPressed: () => Navigator.push<bool>(
+                onPressed: () => Navigator.pushNamed<bool>(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => ProductPage(products[index]['title'], products[index]['imageUrl']),
-                      ),
+                      '/product/' + index.toString()
+                      // MaterialPageRoute(
+                      //   builder: (BuildContext context) => ProductPage(products[index]['title'], products[index]['imageUrl']),
+                      // ),
                     ).then((bool value) {
                       // print('push callback = ' + value.toString());
                       if (value) {
