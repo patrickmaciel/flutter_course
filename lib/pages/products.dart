@@ -25,6 +25,12 @@ class ProductsPage extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, '/products/admin');
               },
             ),
+            ListTile(
+              title: Text('Rota Inexistente'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/oque');
+              },
+            ),
           ],
         ),
       ),

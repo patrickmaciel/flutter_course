@@ -6,6 +6,7 @@ import './pages/products.dart';
 import './pages/product_list.dart';
 import './pages/product_create.dart';
 import './pages/products_admin.dart';
+import './pages/unknown.dart';
 // import 'package:flutter/rendering.dart';
 // import './product_manager.dart';
 
@@ -53,6 +54,7 @@ class _MyAppState extends State<MyApp> {
       // home: AuthPage(),
       routes: {
         '/login': (BuildContext context) => AuthPage(),
+        '/404': (BuildContext context) => UnknownPage(),
         '/': (BuildContext context) =>
             ProductsPage(_products, _addProduct, _deleteProduct),
         '/products/admin': (BuildContext context) => ProductsAdminPage(),
@@ -75,6 +77,13 @@ class _MyAppState extends State<MyApp> {
         }
 
         return null;
+      },
+      onUnknownRoute: (RouteSettings settings) {
+        return MaterialPageRoute(
+          // builder: (BuildContext context) => UnknownPage(),
+          builder: (BuildContext context) =>
+              ProductsPage(_products, _addProduct, _deleteProduct),
+        );
       },
     );
   }
