@@ -27,9 +27,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Map<String, String>> _products = [];
+  List<Map<String, dynamic>> _products = [];
 
-  void _addProduct(Map<String, String> product) {
+  void _addProduct(Map<String, dynamic> product) {
     setState(() {
       _products.add(product);
     });
@@ -53,13 +53,15 @@ class _MyAppState extends State<MyApp> {
           accentColor: Colors.deepPurple),
       // home: AuthPage(),
       routes: {
-        '/login': (BuildContext context) => AuthPage(),
+        '/': (BuildContext context) => AuthPage(),
         '/404': (BuildContext context) => UnknownPage(),
-        '/': (BuildContext context) =>
-            ProductsPage(_products, _addProduct, _deleteProduct),
-        '/products/admin': (BuildContext context) => ProductsAdminPage(),
+        // '/': (BuildContext context) => ProductsPage(_products, _addProduct, _deleteProduct),
+        '/products': (BuildContext context) => ProductsPage(_products),
+        '/products/admin': (BuildContext context) =>
+            ProductsAdminPage(_addProduct, _deleteProduct),
         '/products/my': (BuildContext context) => ProductListPage(),
-        '/products/create': (BuildContext context) => ProductCreatePage(),
+        '/products/create': (BuildContext context) =>
+            ProductCreatePage(_addProduct),
         // '/products/': (BuildContext context) => ProductPage(String, String),
       },
       onGenerateRoute: (RouteSettings settings) {
@@ -81,8 +83,7 @@ class _MyAppState extends State<MyApp> {
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
           // builder: (BuildContext context) => UnknownPage(),
-          builder: (BuildContext context) =>
-              ProductsPage(_products, _addProduct, _deleteProduct),
+          builder: (BuildContext context) => ProductsPage(_products),
         );
       },
     );
