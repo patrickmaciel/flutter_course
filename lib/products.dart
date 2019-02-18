@@ -21,6 +21,28 @@ class Products extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                // Text(
+                //   products[index]['title'],
+                //   style: TextStyle(
+                //     fontSize: 25.0,
+                //     fontWeight: FontWeight.bold,
+                //     fontFamily: 'Arvo',
+                //   ),
+                // ),
+                // Expanded(
+                // Flexible(
+                //   // as much space as they can get, not needed
+                //   // fit: FlexFit.tight,
+                //   flex: 10,
+                //   child: Text(
+                //     products[index]['title'],
+                //     style: TextStyle(
+                //       fontSize: 25.0,
+                //       fontWeight: FontWeight.bold,
+                //       fontFamily: 'Arvo',
+                //     ),
+                //   ),
+                // ),
                 Text(
                   products[index]['title'],
                   style: TextStyle(
@@ -47,6 +69,25 @@ class Products extends StatelessWidget {
                     ),
                   ),
                 ),
+                // Expanded(
+                //   flex: 10,
+                //   child: Container(
+                //     padding:
+                //         EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                //     decoration: BoxDecoration(
+                //       color: Theme.of(context).accentColor,
+                //       borderRadius: BorderRadius.circular(5.0),
+                //     ),
+                //     child: Text(
+                //       // 'R\$' + products[index]['price'].toString(),
+                //       '\$${products[index]['price'].toString()}',
+                //       style: TextStyle(
+                //         color: Colors.white,
+                //         fontSize: 15.0,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

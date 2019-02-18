@@ -7,11 +7,11 @@ import './pages/product_list.dart';
 import './pages/product_create.dart';
 import './pages/products_admin.dart';
 import './pages/unknown.dart';
-// import 'package:flutter/rendering.dart';
+import 'package:flutter/rendering.dart';
 // import './product_manager.dart';
 
 void main() {
-  // debugPaintSizeEnabled = true;
+  debugPaintSizeEnabled = true;
   // debugPaintBaselinesEnabled = true;
   // debugPaintPointersEnabled = true;
   runApp(MyApp());
