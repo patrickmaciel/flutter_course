@@ -111,8 +111,28 @@ class Products extends StatelessWidget {
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlatButton(
-                child: Text('Details'),
+              // FlatButton(
+              //   child: Text('Details'),
+              //   onPressed: () => Navigator.pushNamed<bool>(
+              //       context, '/product/' + index.toString()
+              //       // MaterialPageRoute(
+              //       //   builder: (BuildContext context) => ProductPage(products[index]['title'], products[index]['imageUrl']),
+              //       // ),
+              //       ),
+              // )
+              IconButton(
+                icon: Icon(Icons.info),
+                color: Colors.lightBlue,
+                onPressed: () => Navigator.pushNamed<bool>(
+                    context, '/product/' + index.toString()
+                    // MaterialPageRoute(
+                    //   builder: (BuildContext context) => ProductPage(products[index]['title'], products[index]['imageUrl']),
+                    // ),
+                    ),
+              ),
+              IconButton(
+                icon: Icon(Icons.favorite_border),
+                color: Colors.red,
                 onPressed: () => Navigator.pushNamed<bool>(
                     context, '/product/' + index.toString()
                     // MaterialPageRoute(
