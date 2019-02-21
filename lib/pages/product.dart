@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import '../widgets/ui_elements/title_default.dart';
 
 class ProductPage extends StatelessWidget {
   final String title;
@@ -59,14 +60,7 @@ class ProductPage extends StatelessWidget {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Text(
-                            title,
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Arvo',
-                            ),
-                          ),
+                          TitleDefault(title),
                           SizedBox(
                             width: 10.0,
                           ),
