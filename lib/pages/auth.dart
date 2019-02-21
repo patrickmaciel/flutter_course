@@ -29,57 +29,72 @@ class _AuthPageState extends State<AuthPage> {
             ),
           ),
           padding: EdgeInsets.all(10.0),
-          child: ListView(
-            children: <Widget>[
-              TextField(
-                decoration: InputDecoration(labelText: 'E-mail'),
-                keyboardType: TextInputType.emailAddress,
-                onChanged: (String value) {
-                  setState(() {
-                    _inputEmail = value;
-                  });
-                },
-              ),
-              TextField(
-                decoration: InputDecoration(labelText: 'Senha'),
-                obscureText: true,
-                onChanged: (String value) {
-                  setState(() {
-                    _inputPassword = value;
-                  });
-                },
-              ),
-              // Switch(
-              //   value: true,
-              //   onChanged: (bool) {},
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'E-mail',
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (String value) {
+                      setState(() {
+                        _inputEmail = value;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: 10.9,
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Senha',
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    obscureText: true,
+                    onChanged: (String value) {
+                      setState(() {
+                        _inputPassword = value;
+                      });
+                    },
+                  ),
+                  // Switch(
+                  //   value: true,
+                  //   onChanged: (bool) {},
 
-              // ),
-              SwitchListTile(
-                value: _acceptTerms,
-                onChanged: (bool value) {
-                  setState(() {
-                    _acceptTerms = value;
-                  });
-                },
-                title: Text('Accept Terms'),
+                  // ),
+                  SwitchListTile(
+                    value: _acceptTerms,
+                    onChanged: (bool value) {
+                      setState(() {
+                        _acceptTerms = value;
+                      });
+                    },
+                    title: Text('Accept Terms'),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  RaisedButton(
+                    child: Text('Login'),
+                    color: Theme.of(context).accentColor,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      print(_inputEmail);
+                      print(_inputPassword);
+                      Navigator.pushReplacementNamed(context, '/products'
+                          // MaterialPageRoute(
+                          //     builder: (BuildContext context) => ProductsPage()),
+                          );
+                    },
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 10.0,
-              ),
-              RaisedButton(
-                child: Text('Login'),
-                color: Theme.of(context).accentColor,
-                textColor: Colors.white,
-                onPressed: () {
-                  print(_inputEmail);
-                  print(_inputPassword);
-                  Navigator.pushReplacementNamed(context, '/products'
-                      // MaterialPageRoute(
-                      //     builder: (BuildContext context) => ProductsPage()),
-                      );
-                },
-              ),
-            ],
+            ),
           ),
         ));
   }
