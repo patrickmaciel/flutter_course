@@ -4,8 +4,10 @@ import 'dart:async';
 class ProductPage extends StatelessWidget {
   final String title;
   final String imageUrl;
+  final double price;
+  final String description;
 
-  ProductPage(this.title, this.imageUrl);
+  ProductPage(this.title, this.imageUrl, this.price, this.description);
 
   _showWarningDialog(BuildContext context) {
     showDialog(
@@ -43,33 +45,90 @@ class ProductPage extends StatelessWidget {
           title: Text('Product Detail'),
         ),
         // body: Center(child: Text('On the product page'),),
-        body: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        body: ListView(
           children: <Widget>[
-            Image.asset(imageUrl),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: Text(title),
+            Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(imageUrl),
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Text(
+                            title,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Arvo',
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 2.0, horizontal: 5.0),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).accentColor,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            child: Text(
+                              '\$${price.toString()}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15.0,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      ButtonBar(
+                        alignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(Icons.keyboard_backspace),
+                            color: Theme.of(context).accentColor,
+                            highlightColor: Colors.red,
+                            onPressed: () => Navigator.pop(context, false),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            color: Theme.of(context).accentColor,
+                            onPressed: () => _showWarningDialog(context),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                DecoratedBox(
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    child: Text('Brazil'),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text(description),
+                )
+              ],
             ),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: RaisedButton(
-                color: Theme.of(context).accentColor,
-                child: Text('BACK'),
-                onPressed: () => Navigator.pop(context, false),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: RaisedButton(
-                color: Theme.of(context).accentColor,
-                child: Text('DELETE'),
-                // onPressed: () => Navigator.pop(context, true),
-                // onPressed: () {},
-                onPressed: () => _showWarningDialog(context),
-              ),
-            )
           ],
         ),
       ),
