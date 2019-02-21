@@ -12,21 +12,25 @@ class _AuthPageState extends State<AuthPage> {
   String _inputPassword;
   bool _acceptTerms = false;
 
+  DecorationImage _buildBackgroundImage() {
+    return DecorationImage(
+      fit: BoxFit.cover,
+      colorFilter: ColorFilter.mode(
+        Colors.black.withOpacity(0.5),
+        BlendMode.dstATop,
+      ),
+      image: AssetImage('assets/background.jpg'),
+      // image: Image.asset('assets/background.jpg'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text('Login')),
         body: Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.5),
-                BlendMode.dstATop,
-              ),
-              image: AssetImage('assets/background.jpg'),
-              // image: Image.asset('assets/background.jpg'),
-            ),
+            image: _buildBackgroundImage(),
           ),
           padding: EdgeInsets.all(10.0),
           child: Center(
@@ -62,11 +66,6 @@ class _AuthPageState extends State<AuthPage> {
                       });
                     },
                   ),
-                  // Switch(
-                  //   value: true,
-                  //   onChanged: (bool) {},
-
-                  // ),
                   SwitchListTile(
                     value: _acceptTerms,
                     onChanged: (bool value) {
@@ -86,10 +85,7 @@ class _AuthPageState extends State<AuthPage> {
                     onPressed: () {
                       print(_inputEmail);
                       print(_inputPassword);
-                      Navigator.pushReplacementNamed(context, '/products'
-                          // MaterialPageRoute(
-                          //     builder: (BuildContext context) => ProductsPage()),
-                          );
+                      Navigator.pushReplacementNamed(context, '/products');
                     },
                   ),
                 ],
