@@ -26,6 +26,10 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double deviceWidth = MediaQuery.of(context).size.width;
+    final double targetWidth =
+        MediaQuery.of(context).size.width > 550.0 ? 500.0 : deviceWidth * 0.95;
+
     return Scaffold(
         appBar: AppBar(title: Text('Login')),
         body: Container(
@@ -33,28 +37,29 @@ class _AuthPageState extends State<AuthPage> {
             image: _buildBackgroundImage(),
           ),
           padding: EdgeInsets.all(10.0),
-          child: Container(
-            alignment: Alignment.center,
-//            width: 200.0,
+          child: Center(
             child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  _buildEmailTextField(),
-                  SizedBox(
-                    height: 10.9,
-                  ),
-                  _buildPasswordTextField(),
-                  buildAcceptSwitchListTile(),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  RaisedButton(
-                    child: Text('Login'),
-                    color: Theme.of(context).accentColor,
-                    textColor: Colors.white,
-                    onPressed: _submitForm,
-                  ),
-                ],
+              child: Container(
+                width: targetWidth,
+                child: Column(
+                  children: <Widget>[
+                    _buildEmailTextField(),
+                    SizedBox(
+                      height: 10.9,
+                    ),
+                    _buildPasswordTextField(),
+                    buildAcceptSwitchListTile(),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    RaisedButton(
+                      child: Text('Login'),
+                      color: Theme.of(context).accentColor,
+                      textColor: Colors.white,
+                      onPressed: _submitForm,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
