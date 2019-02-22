@@ -28,8 +28,8 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
 //        if (value.trim().length <= 0) {
 //          return 'Title is required';
 //        }
-        if (value.isEmpty) {
-          return 'Escreve qualquer coisa ai pow!';
+        if (value.isEmpty || value.length < 5) {
+          return 'Ta errado';
         }
       },
 //      autovalidate: true,
@@ -48,6 +48,14 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
       },
       decoration: InputDecoration(labelText: 'Description'),
       maxLines: 4,
+      validator: (String value) {
+//        if (value.trim().length <= 0) {
+//          return 'Title is required';
+//        }
+        if (value.isEmpty || value.length < 10) {
+          return 'Ta errado';
+        }
+      },
     );
   }
 
@@ -60,6 +68,15 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
       },
       decoration: InputDecoration(labelText: 'Price'),
       keyboardType: TextInputType.number,
+      validator: (String value) {
+//        if (value.trim().length <= 0) {
+//          return 'Title is required';
+//        }
+        if (value.isEmpty ||
+            !RegExp(r'^(?:[1-9]\d*|0)?(?:\.\d+)?$').hasMatch(value)) {
+          return 'Ta errado';
+        }
+      },
     );
   }
 
