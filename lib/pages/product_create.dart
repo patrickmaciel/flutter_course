@@ -24,6 +24,15 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
           _titleValue = value;
         });
       },
+      validator: (String value) {
+//        if (value.trim().length <= 0) {
+//          return 'Title is required';
+//        }
+        if (value.isEmpty) {
+          return 'Escreve qualquer coisa ai pow!';
+        }
+      },
+//      autovalidate: true,
       decoration: InputDecoration(
         labelText: 'Title',
       ),
@@ -55,6 +64,9 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   }
 
   _submitForm() {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
     _formKey.currentState.save();
     final Map<String, dynamic> product = {
       'title': _titleValue,
@@ -92,34 +104,9 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
               textColor: Colors.white,
               onPressed: _submitForm,
             ),
-//            GestureDetector(
-//              onTap: _submitForm,
-//              child: Container(
-//                color: Colors.green,
-//                padding: EdgeInsets.all(5.0),
-//                child: Text('My Button'),
-//              ),
-//            ),
           ],
         ),
       ),
     );
-
-    // return Center(child: Text('Create Product'));
-
-    // return Center(
-    //   child: RaisedButton(
-    //     child: Text('Save'),
-    //     onPressed: () {
-    //       showModalBottomSheet(
-    //           context: context,
-    //           builder: (BuildContext context) {
-    //             return Center(
-    //               child: Text('Modal'),
-    //             );
-    //           });
-    //     },
-    //   ),
-    // );
   }
 }
