@@ -80,7 +80,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
               child: Text('Save'),
               color: Theme.of(context).accentColor,
               textColor: Colors.white,
-              onPressed: _submitForm(),
+              onPressed: _submitForm,
             ),
           ],
         ));

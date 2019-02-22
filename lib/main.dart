@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-// import './pages/products.dart';
+
 import './pages/auth.dart';
 import './pages/product.dart';
-import './pages/products.dart';
-import './pages/product_list.dart';
 import './pages/product_create.dart';
+import './pages/product_list.dart';
+import './pages/products.dart';
 import './pages/products_admin.dart';
 import './pages/unknown.dart';
+// import './pages/products.dart';
+
 // import 'package:flutter/rendering.dart';
 // import './product_manager.dart';
 
@@ -30,6 +32,7 @@ class _MyAppState extends State<MyApp> {
   List<Map<String, dynamic>> _products = [];
 
   void _addProduct(Map<String, dynamic> product) {
+    print(product);
     setState(() {
       _products.add(product);
     });

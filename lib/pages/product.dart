@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:flutter/material.dart';
+
 import '../widgets/ui_elements/title_default.dart';
 
 class ProductPage extends StatelessWidget {
@@ -53,67 +55,8 @@ class ProductPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Image.asset(imageUrl),
-                Container(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          TitleDefault(title),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 2.0, horizontal: 5.0),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).accentColor,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            child: Text(
-                              '\$${price.toString()}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15.0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      ButtonBar(
-                        alignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(Icons.keyboard_backspace),
-                            color: Theme.of(context).accentColor,
-                            highlightColor: Colors.red,
-                            onPressed: () => Navigator.pop(context, false),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.delete),
-                            color: Theme.of(context).accentColor,
-                            onPressed: () => _showWarningDialog(context),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                DecoratedBox(
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
-                    child: Text('Brazil'),
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-                ),
+                _buildTitlePrice(context),
+                _buildAddress(),
                 SizedBox(
                   height: 10.0,
                 ),
@@ -125,6 +68,71 @@ class ProductPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  DecoratedBox _buildAddress() {
+    return DecoratedBox(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+        child: Text('Brazil'),
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5.0),
+        border: Border.all(
+          color: Colors.grey,
+          width: 1.0,
+        ),
+      ),
+    );
+  }
+
+  Container _buildTitlePrice(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              TitleDefault(title),
+              SizedBox(
+                width: 10.0,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 5.0),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).accentColor,
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: Text(
+                  '\$${price.toString()}',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.keyboard_backspace),
+                color: Theme.of(context).accentColor,
+                highlightColor: Colors.red,
+                onPressed: () => Navigator.pop(context, false),
+              ),
+              IconButton(
+                icon: Icon(Icons.delete),
+                color: Theme.of(context).accentColor,
+                onPressed: () => _showWarningDialog(context),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
