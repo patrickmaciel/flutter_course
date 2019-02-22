@@ -102,26 +102,32 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
         MediaQuery.of(context).size.width > 550.0 ? 500.0 : deviceWidth * 0.95;
     final double targetPadding = deviceWidth - targetWidth;
 
-    return Container(
-      margin: EdgeInsets.all(10.0),
-      child: Form(
-        key: _formKey, // global key identifier
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
-          children: <Widget>[
-            _buildTitleTextFormField(),
-            _buildDescriptionTextFormField(),
-            _buildPriceTextFormField(),
-            SizedBox(
-              height: 10.0,
-            ),
-            RaisedButton(
-              child: Text('Save'),
-              color: Theme.of(context).accentColor,
-              textColor: Colors.white,
-              onPressed: _submitForm,
-            ),
-          ],
+    return GestureDetector(
+      onTap: () {
+        // esconde o teclado se clicar fora da área
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Container(
+        margin: EdgeInsets.all(10.0),
+        child: Form(
+          key: _formKey, // global key identifier
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
+            children: <Widget>[
+              _buildTitleTextFormField(),
+              _buildDescriptionTextFormField(),
+              _buildPriceTextFormField(),
+              SizedBox(
+                height: 10.0,
+              ),
+              RaisedButton(
+                child: Text('Save'),
+                color: Theme.of(context).accentColor,
+                textColor: Colors.white,
+                onPressed: _submitForm,
+              ),
+            ],
+          ),
         ),
       ),
     );
