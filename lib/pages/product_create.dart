@@ -15,45 +15,47 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   String _titleValue;
   String _descriptionValue;
   double _priceValue;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  _buildTitleTextField() {
-    return TextField(
-      decoration: InputDecoration(
-        labelText: 'Title',
-      ),
-      onChanged: (String value) {
+  _buildTitleTextFormField() {
+    return TextFormField(
+      onSaved: (String value) {
         setState(() {
           _titleValue = value;
         });
       },
+      decoration: InputDecoration(
+        labelText: 'Title',
+      ),
     );
   }
 
-  _buildDescriptionTextField() {
-    return TextField(
-      decoration: InputDecoration(labelText: 'Description'),
-      maxLines: 4,
-      onChanged: (String value) {
+  _buildDescriptionTextFormField() {
+    return TextFormField(
+      onSaved: (String value) {
         setState(() {
           _descriptionValue = value;
         });
       },
+      decoration: InputDecoration(labelText: 'Description'),
+      maxLines: 4,
     );
   }
 
-  _buildPriceTextField() {
-    return TextField(
-      decoration: InputDecoration(labelText: 'Price'),
-      keyboardType: TextInputType.number,
-      onChanged: (String value) {
+  _buildPriceTextFormField() {
+    return TextFormField(
+      onSaved: (String value) {
         setState(() {
           _priceValue = double.parse(value);
         });
       },
+      decoration: InputDecoration(labelText: 'Price'),
+      keyboardType: TextInputType.number,
     );
   }
 
   _submitForm() {
+    _formKey.currentState.save();
     final Map<String, dynamic> product = {
       'title': _titleValue,
       'price': _priceValue,
@@ -72,13 +74,15 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     final double targetPadding = deviceWidth - targetWidth;
 
     return Container(
-        margin: EdgeInsets.all(10.0),
+      margin: EdgeInsets.all(10.0),
+      child: Form(
+        key: _formKey, // global key identifier
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
           children: <Widget>[
-            _buildTitleTextField(),
-            _buildDescriptionTextField(),
-            _buildPriceTextField(),
+            _buildTitleTextFormField(),
+            _buildDescriptionTextFormField(),
+            _buildPriceTextFormField(),
             SizedBox(
               height: 10.0,
             ),
@@ -88,16 +92,18 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
               textColor: Colors.white,
               onPressed: _submitForm,
             ),
-            GestureDetector(
-              onTap: _submitForm,
-              child: Container(
-                color: Colors.green,
-                padding: EdgeInsets.all(5.0),
-                child: Text('My Button'),
-              ),
-            ),
+//            GestureDetector(
+//              onTap: _submitForm,
+//              child: Container(
+//                color: Colors.green,
+//                padding: EdgeInsets.all(5.0),
+//                child: Text('My Button'),
+//              ),
+//            ),
           ],
-        ));
+        ),
+      ),
+    );
 
     // return Center(child: Text('Create Product'));
 
