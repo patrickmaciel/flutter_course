@@ -8,9 +8,12 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  String _inputEmail;
-  String _inputPassword;
-  bool _acceptTerms = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final Map<String, dynamic> _formData = {
+    'email': null,
+    'password': null,
+    'acceptTerms': false
+  };
 
   DecorationImage _buildBackgroundImage() {
     return DecorationImage(
@@ -41,23 +44,26 @@ class _AuthPageState extends State<AuthPage> {
             child: SingleChildScrollView(
               child: Container(
                 width: targetWidth,
-                child: Column(
-                  children: <Widget>[
-                    _buildEmailTextField(),
-                    SizedBox(
-                      height: 10.9,
-                    ),
-                    _buildPasswordTextField(),
-                    buildAcceptSwitchListTile(),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    RaisedButton(
-                      child: Text('Login'),
-                      textColor: Colors.white,
-                      onPressed: _submitForm,
-                    ),
-                  ],
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      _buildEmailTextFormField(),
+                      SizedBox(
+                        height: 10.9,
+                      ),
+                      _buildPasswordTextFormField(),
+                      buildAcceptSwitchListTile(),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      RaisedButton(
+                        child: Text('Login'),
+                        textColor: Colors.white,
+                        onPressed: _submitForm,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -66,51 +72,60 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   void _submitForm() {
-    print(_inputEmail);
-    print(_inputPassword);
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
     Navigator.pushReplacementNamed(context, '/products');
   }
 
   SwitchListTile buildAcceptSwitchListTile() {
     return SwitchListTile(
-      value: _acceptTerms,
+      value: _formData['acceptTerms'],
       onChanged: (bool value) {
         setState(() {
-          _acceptTerms = value;
+          _formData['acceptTerms'] = value;
         });
       },
       title: Text('Accept Terms'),
     );
   }
 
-  TextField _buildPasswordTextField() {
-    return TextField(
+  TextFormField _buildPasswordTextFormField() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'Senha',
         filled: true,
         fillColor: Colors.white,
       ),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Digita a senha rapaz';
+        }
+      },
       obscureText: true,
-      onChanged: (String value) {
-        setState(() {
-          _inputPassword = value;
-        });
+      onSaved: (String value) {
+        _formData['password'] = value;
       },
     );
   }
 
-  TextField _buildEmailTextField() {
-    return TextField(
+  TextFormField _buildEmailTextFormField() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'E-mail',
         filled: true,
         fillColor: Colors.white,
       ),
+      validator: (String value) {
+        if (value.isEmpty ||
+            !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                .hasMatch(value)) {
+          return 'Digita um e-mail rapaz';
+        }
+      },
       keyboardType: TextInputType.emailAddress,
-      onChanged: (String value) {
-        setState(() {
-          _inputEmail = value;
-        });
+      onSaved: (String value) {
+        _formData['email'] = value;
       },
     );
   }
