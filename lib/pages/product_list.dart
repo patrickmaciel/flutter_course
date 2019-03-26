@@ -12,35 +12,41 @@ class ProductListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
-        return ListTile(
-//          leading: CircleAvatar(
-//            backgroundImage: AssetImage(products[index]['imageUrl']),
-//          ),
+        return Column(
+          children: <Widget>[
+            ListTile(
+              leading: CircleAvatar(
+                backgroundImage: AssetImage(products[index]['imageUrl']),
+              ),
 //          leading: Image.asset(products[index]['imageUrl']),
-          leading: new Image(
-//            image: Image.asset(products[index]['imageUrl']),
-            image: AssetImage(products[index]['imageUrl']),
-//            height: 40.0,
-            width: 50.0,
-            fit: BoxFit.fitWidth,
-          ),
-          title: Text(products[index]['title']),
-          trailing: IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return ProductEditPage(
-                      product: products[index],
-                      updateProduct: updateProduct,
-                      productIndex: index,
-                    );
-                  },
-                ),
-              );
-            },
-          ),
+//          leading: new Image(
+////            image: Image.asset(products[index]['imageUrl']),
+//            image: AssetImage(products[index]['imageUrl']),
+////            height: 40.0,
+//            width: 50.0,
+//            fit: BoxFit.fitWidth,
+//          ),
+              title: Text(products[index]['title']),
+              subtitle: Text('R\$${products[index]['price'].toString()}'),
+              trailing: IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return ProductEditPage(
+                          product: products[index],
+                          updateProduct: updateProduct,
+                          productIndex: index,
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+            Divider()
+          ],
         );
       },
       itemCount: products.length,
