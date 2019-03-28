@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import './product_card.dart';
 import '../../models/product.dart';
+import '../../scopedmodels/products.dart';
 
 class Products extends StatelessWidget {
-  final List<Product> products;
-
-  Products([this.products = const []]) {
-    print('[Products Widget] Construtor');
-  }
-
-  Widget _buildProductList() {
+  Widget _buildProductList(List<Product> products) {
     Widget productCards;
 
     if (products.length > 0) {
@@ -32,6 +28,11 @@ class Products extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('[Products Widget] build');
-    return _buildProductList();
+    // We never create an instance of ProductsModel
+    return ScopedModelDescendant<ProductsModel>(
+      builder: (BuildContext context, Widget child, ProductsModel model) {
+        return _buildProductList(model.products);
+      },
+    );
   }
 }

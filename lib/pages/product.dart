@@ -1,16 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_course/models/product.dart';
+import 'package:scoped_model/scoped_model.dart';
 
+import '../scopedmodels/products.dart';
 import '../widgets/ui_elements/title_default.dart';
 
 class ProductPage extends StatelessWidget {
-  final String title;
-  final String imageUrl;
-  final double price;
-  final String description;
+  final int productIndex;
 
-  ProductPage(this.title, this.imageUrl, this.price, this.description);
+  ProductPage(this.productIndex);
 
   _showWarningDialog(BuildContext context) {
     showDialog(
@@ -43,31 +43,36 @@ class ProductPage extends StatelessWidget {
         Navigator.pop(context, false); // block back button
         return Future.value(false); // ignore the default request
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Product Detail'),
-        ),
-        // body: Center(child: Text('On the product page'),),
-        body: ListView(
-          children: <Widget>[
-            Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+      child: ScopedModelDescendant<ProductsModel>(
+        builder: (BuildContext context, Widget child, ProductsModel model) {
+          final Product product = model.products[productIndex];
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(product.title),
+            ),
+            // body: Center(child: Text('On the product page'),),
+            body: ListView(
               children: <Widget>[
-                Image.asset(imageUrl),
-                _buildTitlePrice(context),
-                _buildAddress(),
-                SizedBox(
-                  height: 10.0,
+                Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(product.image),
+                    _buildTitlePrice(context, product),
+                    _buildAddress(),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(product.description),
+                    )
+                  ],
                 ),
-                Container(
-                  padding: EdgeInsets.all(10.0),
-                  child: Text(description),
-                )
               ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -88,7 +93,7 @@ class ProductPage extends StatelessWidget {
     );
   }
 
-  Container _buildTitlePrice(BuildContext context) {
+  Container _buildTitlePrice(BuildContext context, Product product) {
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Row(
@@ -96,7 +101,7 @@ class ProductPage extends StatelessWidget {
         children: <Widget>[
           Column(
             children: <Widget>[
-              TitleDefault(title),
+              TitleDefault(product.title),
               SizedBox(
                 width: 10.0,
               ),
@@ -107,7 +112,7 @@ class ProductPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Text(
-                  '\$${price.toString()}',
+                  '\$${product.price.toString()}',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 15.0,
