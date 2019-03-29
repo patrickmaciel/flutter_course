@@ -76,5 +76,6 @@ class ProductsModel extends Model {
   {
     _showFavorites = !_showFavorites;
     notifyListeners();
+    _selectedProductIndex = null;
   }
 }
