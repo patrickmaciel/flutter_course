@@ -97,7 +97,7 @@ class ProductPage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Column(
             children: <Widget>[

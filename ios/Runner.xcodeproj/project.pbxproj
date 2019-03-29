@@ -327,7 +327,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.patrickmaciel.flutterCourse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.flutterCourse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -457,7 +457,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.patrickmaciel.flutterCourse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.flutterCourse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -481,7 +481,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.patrickmaciel.flutterCourse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.flutterCourse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
