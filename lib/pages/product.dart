@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_course/models/product.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-import '../scopedmodels/products.dart';
+import '../scopedmodels/main.dart';
 import '../widgets/ui_elements/title_default.dart';
 
 class ProductPage extends StatelessWidget {
@@ -43,8 +43,8 @@ class ProductPage extends StatelessWidget {
         Navigator.pop(context, false); // block back button
         return Future.value(false); // ignore the default request
       },
-      child: ScopedModelDescendant<ProductsModel>(
-        builder: (BuildContext context, Widget child, ProductsModel model) {
+      child: ScopedModelDescendant<MainModel>(
+        builder: (BuildContext context, Widget child, MainModel model) {
           final Product product = model.products[productIndex];
           return Scaffold(
             appBar: AppBar(
@@ -119,21 +119,21 @@ class ProductPage extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
-          ButtonBar(
-            alignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.keyboard_backspace),
-                color: Theme.of(context).accentColor,
-                highlightColor: Colors.red,
-                onPressed: () => Navigator.pop(context, false),
-              ),
-              IconButton(
-                icon: Icon(Icons.delete),
-                color: Theme.of(context).accentColor,
-                onPressed: () => _showWarningDialog(context),
+              ButtonBar(
+                alignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.keyboard_backspace),
+                    color: Theme.of(context).accentColor,
+                    highlightColor: Colors.red,
+                    onPressed: () => Navigator.pop(context, false),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.delete),
+                    color: Theme.of(context).accentColor,
+                    onPressed: () => _showWarningDialog(context),
+                  ),
+                ],
               ),
             ],
           ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+import '../scopedmodels/main.dart';
 
 class AuthPage extends StatefulWidget {
   @override
@@ -57,10 +59,15 @@ class _AuthPageState extends State<AuthPage> {
                       SizedBox(
                         height: 10.0,
                       ),
-                      RaisedButton(
-                        child: Text('Login'),
-                        textColor: Colors.white,
-                        onPressed: _submitForm,
+                      ScopedModelDescendant<MainModel>(
+                        builder: (BuildContext build, Widget child,
+                            MainModel model) {
+                          return RaisedButton(
+                            child: Text('Login'),
+                            textColor: Colors.white,
+                            onPressed: () => _submitForm(model.login),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -71,10 +78,12 @@ class _AuthPageState extends State<AuthPage> {
         ));
   }
 
-  void _submitForm() {
+  void _submitForm(Function login) {
     if (!_formKey.currentState.validate()) {
       return;
     }
+    _formKey.currentState.save();
+    login(_formData['email'], _formData['password']);
     Navigator.pushReplacementNamed(context, '/products');
   }
 
@@ -116,6 +125,7 @@ class _AuthPageState extends State<AuthPage> {
         filled: true,
         fillColor: Colors.white,
       ),
+      initialValue: 'test@test.com',
       validator: (String value) {
         if (value.isEmpty ||
             !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")

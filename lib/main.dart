@@ -8,6 +8,7 @@ import './pages/product_list.dart';
 import './pages/products.dart';
 import './pages/products_admin.dart';
 import './pages/unknown.dart';
+import 'scopedmodels/main.dart';
 import 'scopedmodels/products.dart';
 // import './pages/products.dart';
 
@@ -35,8 +36,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // core root widget - object  based
     // name arguments
-    return ScopedModel<ProductsModel>(
-      model: ProductsModel(),
+    return ScopedModel<MainModel>(
+      model: MainModel(),
       child: MaterialApp(
         // debugShowMaterialGrid: true,
         theme: ThemeData(

@@ -84,12 +84,12 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
       return;
     }
     _formKey.currentState.save();
-    widget.addProduct(Product(
-      title: _formData['title'],
-      description: _formData['description'],
-      price: _formData['price'],
-      image: _formData['imageUrl'],
-    ));
+    widget.addProduct(
+      _formData['title'],
+      _formData['description'],
+      _formData['imageUrl'],
+      _formData['price'],
+    );
     Navigator.pushReplacementNamed(context, '/products');
   }
 

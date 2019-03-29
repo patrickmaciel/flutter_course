@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../models/product.dart';
-import '../scopedmodels/products.dart';
+import '../scopedmodels/main.dart';
 import '../widgets/helpers/ensure-visible.dart';
 
 class ProductEditPage extends StatefulWidget {
@@ -103,19 +103,19 @@ class _ProductEditPageState extends State<ProductEditPage> {
     }
     _formKey.currentState.save();
     if (selectedProductIndex == null) {
-      addProduct(Product(
-        title: _formData['title'],
-        description: _formData['description'],
-        price: _formData['price'],
-        image: _formData['imageUrl'],
-      ));
+      addProduct(
+        _formData['title'],
+        _formData['description'],
+        _formData['imageUrl'],
+        _formData['price'],
+      );
     } else {
-      updateProduct(Product(
-        title: _formData['title'],
-        description: _formData['description'],
-        price: _formData['price'],
-        image: _formData['imageUrl'],
-      ));
+      updateProduct(
+        _formData['title'],
+        _formData['description'],
+        _formData['imageUrl'],
+        _formData['price'],
+      );
     }
 
     Navigator.pushReplacementNamed(context, '/products');
@@ -123,8 +123,8 @@ class _ProductEditPageState extends State<ProductEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<ProductsModel>(
-      builder: (BuildContext context, Widget child, ProductsModel model) {
+    return ScopedModelDescendant<MainModel>(
+      builder: (BuildContext context, Widget child, MainModel model) {
         final double deviceWidth = MediaQuery.of(context).size.width;
         final double targetWidth = MediaQuery.of(context).size.width > 550.0
             ? 500.0
@@ -174,8 +174,8 @@ class _ProductEditPageState extends State<ProductEditPage> {
   }
 
   Widget _buildSubmitButton(BuildContext context) {
-    return ScopedModelDescendant<ProductsModel>(
-      builder: (BuildContext context, Widget child, ProductsModel model) {
+    return ScopedModelDescendant<MainModel>(
+      builder: (BuildContext context, Widget child, MainModel model) {
         return RaisedButton(
           child: Text('Save'),
           color: Theme.of(context).accentColor,

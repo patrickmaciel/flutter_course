@@ -5,7 +5,7 @@ import '../ui_elements/title_default.dart';
 import 'address_tag.dart';
 import 'price_tag.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:flutter_course/scopedmodels/products.dart';
+import 'package:flutter_course/scopedmodels/main.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -21,6 +21,7 @@ class ProductCard extends StatelessWidget {
           Image.asset(product.image),
           _buildTitlePrice(),
           AddressTag('Brasil Zil'),
+          Text(product.userEmail),
           _buildActionsButtons(context),
         ],
       ),
@@ -37,10 +38,12 @@ class ProductCard extends StatelessWidget {
           onPressed: () => Navigator.pushNamed<bool>(
               context, '/product/' + productIndex.toString()),
         ),
-        ScopedModelDescendant<ProductsModel>(
-          builder: (BuildContext context, Widget child, ProductsModel model) {
+        ScopedModelDescendant<MainModel>(
+          builder: (BuildContext context, Widget child, MainModel model) {
             return IconButton(
-              icon: Icon(model.products[productIndex].isFavorite ? Icons.favorite : Icons.favorite_border),
+              icon: Icon(model.products[productIndex].isFavorite
+                  ? Icons.favorite
+                  : Icons.favorite_border),
               color: Colors.red,
               onPressed: () {
                 model.selectProduct(productIndex);
