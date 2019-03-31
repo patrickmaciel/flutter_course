@@ -72,6 +72,9 @@ mixin ProductsModel on ConnectedProductsModel {
 
   void selectProduct(int index) {
     _productIndexSelected = index;
+    if (index != null) {
+      notifyListeners();
+    }
   }
 
   void toggleProductFavoriteStatus() {

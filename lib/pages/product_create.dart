@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../models/product.dart';
-
 class ProductCreatePage extends StatefulWidget {
   final Function addProduct;
 
