@@ -9,7 +9,6 @@ import './pages/products.dart';
 import './pages/products_admin.dart';
 import './pages/unknown.dart';
 import 'scopedmodels/main.dart';
-import 'scopedmodels/products.dart';
 // import './pages/products.dart';
 
 // import 'package:flutter/rendering.dart';

@@ -20,6 +20,7 @@ class ProductCard extends StatelessWidget {
         children: <Widget>[
           Image.asset(product.image),
           _buildTitlePrice(),
+          PriceTag(product.price),
           AddressTag('Brasil Zil'),
           Text(product.userEmail),
           _buildActionsButtons(context),
@@ -41,7 +42,7 @@ class ProductCard extends StatelessWidget {
         ScopedModelDescendant<MainModel>(
           builder: (BuildContext context, Widget child, MainModel model) {
             return IconButton(
-              icon: Icon(model.products[productIndex].isFavorite
+              icon: Icon(model.allProducts[productIndex].isFavorite
                   ? Icons.favorite
                   : Icons.favorite_border),
               color: Colors.red,
@@ -65,10 +66,6 @@ class ProductCard extends StatelessWidget {
           TitleDefault(
             product.title,
           ),
-          SizedBox(
-            width: 8.0,
-          ),
-          PriceTag(product.price),
         ],
       ),
     );

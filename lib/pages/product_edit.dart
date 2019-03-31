@@ -96,7 +96,8 @@ class _ProductEditPageState extends State<ProductEditPage> {
     );
   }
 
-  _submitForm(Function addProduct, Function updateProduct,
+  _submitForm(
+      Function addProduct, Function updateProduct, Function setSelectedProduct,
       [int selectedProductIndex]) {
     if (!_formKey.currentState.validate()) {
       return;
@@ -118,7 +119,8 @@ class _ProductEditPageState extends State<ProductEditPage> {
       );
     }
 
-    Navigator.pushReplacementNamed(context, '/products');
+    Navigator.pushReplacementNamed(context, '/products')
+        .then((_) => setSelectedProduct(null));
   }
 
   @override
@@ -181,7 +183,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
           color: Theme.of(context).accentColor,
           textColor: Colors.white,
           onPressed: () => _submitForm(model.addProduct, model.updateProduct,
-              model.selectedProductIndex),
+              model.selectProduct, model.selectedProductIndex),
         );
       },
     );
