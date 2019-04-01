@@ -18,18 +18,22 @@ mixin ConnectedProductsModel on Model {
           'https://ovicio.com.br/wp-content/uploads/dragon-ball-super-vegeta.jpeg',
       'price': price
     };
-    http.post('https://flutter-products-bd653.firebaseio.com/products.json',
-        body: json.encode(productData));
-
-    final Product newProduct = Product(
-        title: title,
-        description: description,
-        price: price,
-        image: image,
-        userEmail: _authenticatedUser.email,
-        userId: _authenticatedUser.id);
-    _products.add(newProduct);
-    notifyListeners();
+    http
+        .post('https://flutter-products-bd653.firebaseio.com/products.json',
+            body: json.encode(productData))
+        .then((http.Response response) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final Product newProduct = Product(
+          id: responseData['name'],
+          title: title,
+          description: description,
+          price: price,
+          image: image,
+          userEmail: _authenticatedUser.email,
+          userId: _authenticatedUser.id);
+      _products.add(newProduct);
+      notifyListeners();
+    });
   }
 }
 
