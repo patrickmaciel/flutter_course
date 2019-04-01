@@ -35,8 +35,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // core root widget - object  based
     // name arguments
+    final MainModel model = MainModel();
     return ScopedModel<MainModel>(
-      model: MainModel(),
+      model: model,
       child: MaterialApp(
         // debugShowMaterialGrid: true,
         theme: ThemeData(
@@ -53,7 +54,7 @@ class _MyAppState extends State<MyApp> {
           '/': (BuildContext context) => AuthPage(),
           '/404': (BuildContext context) => UnknownPage(),
           // '/': (BuildContext context) => ProductsPage(_products, _addProduct, _deleteProduct),
-          '/products': (BuildContext context) => ProductsPage(),
+          '/products': (BuildContext context) => ProductsPage(model),
           '/products/admin': (BuildContext context) => ProductsAdminPage(),
           '/products/my': (BuildContext context) => ProductListPage(),
           '/products/create': (BuildContext context) => ProductEditPage(),
@@ -77,7 +78,7 @@ class _MyAppState extends State<MyApp> {
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute(
             // builder: (BuildContext context) => UnknownPage(),
-            builder: (BuildContext context) => ProductsPage(),
+            builder: (BuildContext context) => ProductsPage(model),
           );
         },
       ),

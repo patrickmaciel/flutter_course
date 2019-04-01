@@ -16,7 +16,9 @@ mixin ConnectedProductsModel on Model {
       'description': description,
       'image':
           'https://ovicio.com.br/wp-content/uploads/dragon-ball-super-vegeta.jpeg',
-      'price': price
+      'price': price,
+      'userEmail': this._authenticatedUser.email,
+      'userId': this._authenticatedUser.id,
     };
     http
         .post('https://flutter-products-bd653.firebaseio.com/products.json',
@@ -71,6 +73,7 @@ mixin ProductsModel on ConnectedProductsModel {
   void updateProduct(
       String title, String description, String image, double price) {
     final Product updatedProduct = Product(
+        id: selectedProduct.id,
         title: title,
         description: description,
         price: price,
@@ -98,6 +101,7 @@ mixin ProductsModel on ConnectedProductsModel {
         _products[_productIndexSelected].isFavorite;
     final bool newFavoriteStatus = !isCurrentlyFavorite;
     final Product updatedProduct = Product(
+        id: selectedProduct.id,
         title: selectedProduct.title,
         description: selectedProduct.description,
         price: selectedProduct.price,
@@ -113,6 +117,29 @@ mixin ProductsModel on ConnectedProductsModel {
     _showFavorites = !_showFavorites;
     notifyListeners();
     _productIndexSelected = null;
+  }
+
+  void fetchProducts() {
+    http
+        .get('https://flutter-products-bd653.firebaseio.com/products.json')
+        .then((http.Response response) {
+      final List<Product> fetchProductList = [];
+      final Map<String, dynamic> productListData = json.decode(response.body);
+      productListData.forEach((String productId, dynamic productData) {
+        final Product product = Product(
+          id: productId,
+          title: productData['title'],
+          description: productData['description'],
+          image: productData['image'],
+          userId: productData['userId'],
+          userEmail: productData['userEmail'],
+          price: productData['price'],
+        );
+        fetchProductList.add(product);
+      });
+      _products = fetchProductList;
+      notifyListeners();
+    });
   }
 }
 
