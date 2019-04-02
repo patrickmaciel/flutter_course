@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:scoped_model/scoped_model.dart';
 import '../models/product.dart';
 import '../models/user.dart';
@@ -8,22 +10,26 @@ mixin ConnectedProductsModel on Model {
   List<Product> _products = [];
   int _productIndexSelected;
   User _authenticatedUser;
+  bool _isLoading = false;
 
-  void addProduct(
+  Future<Null> addProduct(
       String title, String description, String image, double price) {
+    _isLoading = true;
+    notifyListeners();
     final Map<String, dynamic> productData = {
       'title': title,
       'description': description,
       'image':
           'https://ovicio.com.br/wp-content/uploads/dragon-ball-super-vegeta.jpeg',
       'price': price,
-      'userEmail': this._authenticatedUser.email,
-      'userId': this._authenticatedUser.id,
+      'userEmail': _authenticatedUser.email,
+      'userId': _authenticatedUser.id,
     };
-    http
+    return http
         .post('https://flutter-products-bd653.firebaseio.com/products.json',
             body: json.encode(productData))
         .then((http.Response response) {
+      _isLoading = false;
       final Map<String, dynamic> responseData = json.decode(response.body);
       final Product newProduct = Product(
           id: responseData['name'],
@@ -120,11 +126,19 @@ mixin ProductsModel on ConnectedProductsModel {
   }
 
   void fetchProducts() {
+    _isLoading = true;
+    notifyListeners();
     http
         .get('https://flutter-products-bd653.firebaseio.com/products.json')
         .then((http.Response response) {
       final List<Product> fetchProductList = [];
       final Map<String, dynamic> productListData = json.decode(response.body);
+      if (productListData == null) {
+        _isLoading = false;
+        notifyListeners();
+        return;
+      }
+
       productListData.forEach((String productId, dynamic productData) {
         final Product product = Product(
           id: productId,
@@ -138,6 +152,7 @@ mixin ProductsModel on ConnectedProductsModel {
         fetchProductList.add(product);
       });
       _products = fetchProductList;
+      _isLoading = false;
       notifyListeners();
     });
   }
@@ -146,5 +161,11 @@ mixin ProductsModel on ConnectedProductsModel {
 mixin UsersModel on ConnectedProductsModel {
   void login(String email, String password) {
     _authenticatedUser = new User(id: 1, email: email, password: password);
+  }
+}
+
+mixin UtilityModel on ConnectedProductsModel {
+  bool get isLoading {
+    return _isLoading;
   }
 }
